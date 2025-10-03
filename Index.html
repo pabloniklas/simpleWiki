@@ -1,0 +1,2863 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon"
+    href="data:image/x-icon;base64,AAABAAQAEBAAAAAAIADjAgAARgAAACAgAAAAA...V48H+Dp/tfoHVlK6w2oFYCUBtQKwGoDaj1ArCUhEGdQwNzAAAAAElFTkSuQmCC">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title></title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+  <style>
+    /*
+  Open-source restyle (neutral, accesible)
+  - Sin fuentes/tokens corporativos
+  - Mantiene las mismas clases de tu Index.html
+  - Contrastes AA en enlaces/primarios
+  - Soporta tu modo "theme-light" en bloques de código
+*/
+
+    /* =========================
+   Tokens & base (neutros)
+   ========================= */
+    :root {
+      --container-max: min(1300px, 100%);
+      --article-max: 1200px;
+
+      /* Paleta sobria */
+      --bg: #F7F8FA;
+      /* fondo base */
+      --surface: #FFFFFF;
+      /* paneles/cards */
+      --text: #0F172A;
+      /* texto principal (slate-900) */
+      --muted-400: #94A3B8;
+      /* texto atenuado */
+      --muted-600: #475569;
+      --border: #E5E7EB;
+      /* bordes suaves */
+
+      /* Marca genérica (indigo) */
+      --primary-50: #EEF2FF;
+      --primary-100: #E0E7FF;
+      --primary-300: #A5B4FC;
+      --primary-600: #4F46E5;
+      --primary-700: #4338CA;
+      /* enlaces/CTA */
+
+      /* Acentos neutrales */
+      --info-100: #DBEAFE;
+      --info-300: #93C5FD;
+      --info-700: #1D4ED8;
+      --success-100: #DCFCE7;
+      --success-300: #86EFAC;
+      --success-700: #15803D;
+      --warning-100: #FEF3C7;
+      --warning-300: #FDE68A;
+      --warning-700: #92400E;
+      --important-100: #FFEDD5;
+      --important-300: #FECBA1;
+      --important-700: #9A3412;
+      --danger-100: #FEE2E2;
+      --danger-300: #FCA5A5;
+      --danger-700: #B91C1C;
+      --purple-500: #8B5CF6;
+      --cyan-500: #06B6D4;
+      --green-600: #16A34A;
+      --orange-500: #F59E0B;
+
+      /* UI */
+      --link: var(--primary-700);
+      --radius: 16px;
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --shadow: 0 10px 30px rgba(2, 6, 23, .08);
+
+      /* Code */
+      --code-font-size: 12.5px;
+      --code-lh: 1.25;
+      --code-gutter: 3.2em;
+      --code-pad-y: 10px;
+
+      /* Bootnote */
+      --bn-radius: 16px;
+      --bn-gap: 16px;
+      --bn-pad: 16px 20px;
+      --bn-shadow: 0 1px 0 rgba(0, 0, 0, .02);
+      --bn-title: #0F172A;
+      --bn-text: #475569;
+
+      /* Panel “cloud” */
+      --panel: #F5F7FB;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Hero / Bienvenida */
+    .home-hero,
+    .welcome {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: var(--space-3) var(--space-4);
+      box-shadow: var(--shadow);
+      margin-bottom: var(--space-3);
+    }
+
+    .home-hero h2 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .home-hero p {
+      margin: 0;
+      color: var(--muted-600)
+    }
+
+    /* =========================
+   Header + búsqueda
+   ========================= */
+    header {
+      background: #0E1A33;
+      /* navy sobrio */
+      color: #fff;
+      padding: 12px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .12);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(120%) blur(4px);
+    }
+
+    .topbar {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .brand .logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      background: radial-gradient(120% 100% at 20% 10%, #6366F1 0%, #4338CA 50%, #312E81 100%);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .10), 0 4px 12px rgba(67, 56, 202, .35);
+    }
+
+    .brand span {
+      font-weight: 800;
+      letter-spacing: .2px
+    }
+
+    .search {
+      display: flex;
+      gap: 8px
+    }
+
+    .search input {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #23314d;
+      background: #0f1b36;
+      color: #e7ecf5;
+      outline: none;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+
+    .search input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, .25);
+    }
+
+    .search button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      background: #11306b;
+      color: #fff;
+      cursor: pointer;
+      transition: transform .08s ease, opacity .15s ease;
+    }
+
+    .search button:hover {
+      opacity: .9
+    }
+
+    .search button:active {
+      transform: translateY(1px)
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none
+    }
+
+    a:hover {
+      text-decoration: underline
+    }
+
+    /* =========================
+   Layout general
+   ========================= */
+    main {
+      margin: 20px auto;
+      padding: 0 var(--space-4);
+    }
+
+    main,
+    .wrap {
+      max-width: var(--container-max);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: var(--space-3);
+      align-items: start;
+    }
+
+    /* Sidebar izquierda */
+    .sidebar {
+      position: sticky;
+      top: 24px;
+      align-self: start;
+      background: transparent;
+      padding: 0;
+    }
+
+    .sidebar .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--space-3);
+    }
+
+    .sidebar-title {
+      font-weight: 800;
+      letter-spacing: .2px;
+      margin-bottom: 8px
+    }
+
+    .nav {
+      display: grid;
+      gap: 6px
+    }
+
+    .nav a {
+      display: block;
+      padding: 8px 10px;
+      border-radius: 10px;
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: background .12s ease, border-color .12s ease, transform .06s ease;
+    }
+
+    .nav a:hover {
+      background: #F2F5FB
+    }
+
+    .nav a.active {
+      background: #EEF2FF;
+      border-color: var(--border)
+    }
+
+    .muted {
+      color: var(--muted-600);
+      font-size: 12px
+    }
+
+    /* =========================
+   Home (grid de artículos)
+   ========================= */
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(12, 1fr)
+    }
+
+    .card .head {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .card .icn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #EEF2FF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 40px rgba(2, 6, 23, .10);
+      border-color: #D1D5DB;
+    }
+
+    .card a {
+      color: var(--link);
+      font-weight: 700
+    }
+
+    .card a:hover {
+      text-decoration: underline
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #EEF2FF;
+      color: var(--primary-700);
+      font-size: 12px
+    }
+
+    .meta {
+      font-size: 12px;
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted-600)
+    }
+
+    /* =========================
+   Vista de artículo
+   ========================= */
+    .article {
+      width: 100%;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .article .disclaimer {
+      margin-top: var(--space-3);
+      padding-top: var(--space-2);
+      border-top: 1px dashed var(--border);
+      color: var(--muted-600);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    /* Si tu proyecto será open-source, puedes ocultar o reemplazar el disclaimer por defecto */
+    body:not(.is-private) .article .disclaimer {
+      display: none;
+    }
+
+    .prose img {
+      max-width: 100%;
+      height: auto;
+      line-height: 1.5;
+      display: block;
+      margin: 12px auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, .06);
+    }
+
+    .hr {
+      height: 1px;
+      background: var(--border);
+      margin: 16px 0
+    }
+
+    .prose h1,
+    .prose h2,
+    .prose h3 {
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: .1px;
+      scroll-margin-top: 96px;
+      margin: 0 0 10px;
+    }
+
+    .prose p {
+      line-height: 1.6;
+      margin: 0 0 var(--space-1)
+    }
+
+    .prose ul,
+    .prose ol {
+      margin: 0 0 var(--space-1);
+      padding-left: 1.1em
+    }
+
+    /* Tablas GFM */
+    .prose table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-3) 0;
+      background: #fff
+    }
+
+    .prose th,
+    .prose td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      vertical-align: top
+    }
+
+    .prose th {
+      background: #F2F5FB;
+      text-align: left
+    }
+
+    .prose tr:nth-child(even) td {
+      background: #FAFCFF
+    }
+
+    /* Code blocks (oscuro por defecto) */
+    .prose pre {
+      background: #0A0F1A;
+      border: 1px solid #223357;
+      border-radius: 10px;
+      padding: var(--code-pad-y) 14px;
+      max-height: 60vh;
+      overflow: auto;
+      color: #E6EDF3;
+      margin: var(--space-3) 0;
+    }
+
+    .prose pre code.hljs {
+      padding: 0 !important;
+    }
+
+    .prose pre code,
+    .prose code,
+    .hljs {
+      font-size: var(--code-font-size);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    .prose pre code:not(.hljs) {
+      color: #E6EDF3
+    }
+
+    /* Tokens highlight (neutros) */
+    .hljs-comment,
+    .hljs-quote {
+      color: var(--muted-400);
+      font-style: italic
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-doctag,
+    .hljs-built_in,
+    .hljs-literal,
+    .hljs-type {
+      color: var(--primary-700);
+      font-weight: 600
+    }
+
+    .hljs-string,
+    .hljs-meta .hljs-string,
+    .hljs-attr {
+      color: var(--success-700)
+    }
+
+    .hljs-number,
+    .hljs-literal.hljs-boolean {
+      color: var(--orange-500)
+    }
+
+    .hljs-title,
+    .hljs-title.class_,
+    .hljs-title.function_ {
+      color: var(--purple-500);
+      font-weight: 600
+    }
+
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-params {
+      color: var(--cyan-500)
+    }
+
+    .hljs-attribute,
+    .hljs-property {
+      color: #9CD1FF
+    }
+
+    .hljs-punctuation,
+    .hljs-symbol {
+      color: #C9D1D9
+    }
+
+    .hljs-emphasis {
+      font-style: italic
+    }
+
+    .hljs-strong {
+      font-weight: 700
+    }
+
+    .hljs-ln-code {
+      position: relative;
+      white-space: pre
+    }
+
+    .hljs-ln-code .hljs-ln-line {
+      position: relative;
+      display: block;
+      padding-left: var(--code-gutter);
+      line-height: var(--code-lh);
+      white-space: pre;
+      margin: 0;
+    }
+
+    .hljs-ln-code .hljs-ln-line:empty::after {
+      content: '\00a0'
+    }
+
+    .hljs-ln-code .hljs-ln-line::before {
+      counter-increment: ln;
+      content: counter(ln);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: calc(var(--code-gutter) - .6em);
+      text-align: right;
+      color: #94A3B8;
+      border-right: 1px solid #E5E7EB;
+      padding-right: .6em;
+      user-select: none;
+      background: transparent;
+    }
+
+    /* Bootnote (callouts) */
+    .bootnote {
+      position: relative;
+      display: flex;
+      gap: var(--bn-gap);
+      border-radius: var(--bn-radius);
+      padding: var(--bn-pad);
+      box-shadow: var(--bn-shadow);
+      border: 1px solid transparent;
+      align-items: flex-start;
+      line-height: 1.45;
+      color: var(--bn-text);
+      background: #F8FAFC;
+    }
+
+    .bootnote::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      border-radius: var(--bn-radius) 0 0 var(--bn-radius);
+      background: var(--bn-accent, var(--primary-700));
+      opacity: .9;
+    }
+
+    .bootnote__icon {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: var(--bn-accent-bg, #EEF2FF);
+      color: var(--bn-accent-fg, var(--primary-700));
+      margin-top: 2px;
+    }
+
+    .bootnote__title {
+      font-weight: 700;
+      color: var(--bn-title);
+      margin: 0 0 4px;
+      font-size: .95rem
+    }
+
+    .bootnote__content> :first-child {
+      margin-top: 0
+    }
+
+    .bootnote__content> :last-child {
+      margin-bottom: 0
+    }
+
+    /* Variantes */
+    .bootnote.note {
+      --bn-accent: var(--info-300);
+      --bn-accent-bg: var(--info-100);
+      --bn-accent-fg: var(--primary-700);
+      background: #EFF6FF;
+      border-color: var(--info-100)
+    }
+
+    .bootnote.question {
+      --bn-accent: var(--success-300);
+      --bn-accent-bg: var(--success-100);
+      --bn-accent-fg: var(--text);
+      background: #F0FDF4;
+      border-color: var(--success-100)
+    }
+
+    .bootnote.toknow {
+      --bn-accent: var(--purple-500);
+      --bn-accent-bg: rgba(255, 255, 255, .12);
+      --bn-accent-fg: #fff;
+      background: #0B1538;
+      border-color: #131F4A;
+      color: #E7ECF5
+    }
+
+    .bootnote.toknow .bootnote__title {
+      color: #fff
+    }
+
+    .bootnote.toknow .bootnote__icon {
+      background: rgba(255, 255, 255, .12);
+      color: #fff
+    }
+
+    .bootnote.link {
+      --bn-accent: var(--purple-500);
+      --bn-accent-bg: #EFEFFF;
+      --bn-accent-fg: var(--primary-700);
+      background: #F9F9FF;
+      border-color: #E3E1FF
+    }
+
+    .bootnote.warning {
+      --bn-accent: var(--warning-300);
+      --bn-accent-bg: var(--warning-100);
+      --bn-accent-fg: var(--text);
+      background: #FFFBEB;
+      border-color: var(--warning-100)
+    }
+
+    .bootnote.important {
+      --bn-accent: var(--important-300);
+      --bn-accent-bg: var(--important-100);
+      --bn-accent-fg: var(--text);
+      background: #FFF7ED;
+      border-color: var(--important-100)
+    }
+
+    @media (prefers-contrast: more) {
+      .bootnote {
+        border-width: 2px
+      }
+
+      .bootnote::before {
+        width: 8px
+      }
+    }
+
+    /* =========================
+   Rail derecho (Enlaces)
+   ========================= */
+    .rail {
+      display: none !important;
+    }
+
+    .layout.no-rail {
+      grid-template-columns: 280px minmax(0, 1fr);
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px
+    }
+
+    .panel+.panel {
+      margin-top: 16px
+    }
+
+    .panel-title {
+      font-weight: 800;
+      margin-bottom: 8px
+    }
+
+    .linkcard {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      box-shadow: var(--shadow);
+      background: #fff;
+      position: relative;
+      transition: transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+
+    .linkcard::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-left: 4px solid var(--accent, var(--cyan-500));
+      border-radius: 14px
+    }
+
+    .linkcard+.linkcard {
+      margin-top: 10px
+    }
+
+    .linkcard:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(2, 6, 23, .08);
+      border-color: #D1D5DB;
+    }
+
+    .linkcard .icn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: #F2F5FB;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .linkcard .title {
+      font-weight: 700;
+      line-height: 1.2
+    }
+
+    .linkcard .desc {
+      font-size: 13px;
+      color: var(--muted-600);
+      margin-top: 2px
+    }
+
+    /* =========================
+   Word-cloud (landing)
+   ========================= */
+    .cloud-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: var(--space-3);
+    }
+
+    .cloud-wrap {
+      background: var(--panel);
+      border: 1px solid #1d2940;
+      /* mantiene tu borde dark para contraste */
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+    }
+
+    .cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cloud a {
+      text-decoration: none;
+      font-weight: 700;
+      line-height: 1.1;
+      transition: transform .1s ease, color .2s ease, text-shadow .2s;
+    }
+
+    .cloud a:hover {
+      transform: translateY(-2px);
+      color: var(--link);
+      text-shadow: 0 0 0 rgba(0, 0, 0, 0)
+    }
+
+    /* =========================
+   Componentes auxiliares
+   ========================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none
+    }
+
+    .btn-primary {
+      background: var(--primary-700);
+      color: #fff
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--link)
+    }
+
+    .hr-light {
+      height: 1px;
+      background: var(--border);
+      margin: var(--space-2) 0
+    }
+
+    /* =========================
+   Lista últimos (sidebar)
+   ========================= */
+    #latestList .linkcard {
+      grid-template-columns: 28px 1fr;
+      padding: 10px 12px;
+      gap: 8px;
+      border-radius: 12px;
+    }
+
+    #latestList .linkcard .icn {
+      width: 28px;
+      height: 28px;
+    }
+
+    #latestList .title {
+      line-height: 1.2;
+    }
+
+    #latestList .desc {
+      margin-top: 2px;
+    }
+
+    /* =========================
+   TOC compacto
+   ========================= */
+    #toc {
+      font-size: 14px;
+    }
+
+    #toc ul {
+      margin: 6px 0;
+      padding-left: 1.1em;
+    }
+
+    #toc li {
+      margin: 2px 0;
+    }
+
+    #toc a {
+      display: block;
+      padding: 2px 4px;
+      border-radius: 8px;
+      line-height: 1.2;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    #toc a:hover {
+      background: #F2F5FB;
+    }
+
+    /* =========================
+   Loader / Spinner
+   ========================= */
+    .loading {
+      display: grid;
+      place-items: center;
+      gap: 10px;
+      min-height: 160px;
+      color: var(--muted-600)
+    }
+
+    .loading .ring {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary-700);
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .loading .loading-msg {
+      font-size: 13px
+    }
+
+    .loading.small {
+      min-height: 56px;
+      gap: 6px
+    }
+
+    .loading.small .ring {
+      width: 22px;
+      height: 22px;
+      border-width: 3px
+    }
+
+    .loading.small .loading-msg {
+      font-size: 12px
+    }
+
+    /* =========================
+   Metadatos / avatar
+   ========================= */
+    .meta-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 12px;
+      color: #fff;
+      background: var(--avatar, #64748b);
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar .initials {
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    /* =========================
+   Responsivo
+   ========================= */
+    @media (max-width:1100px) {
+      .layout {
+        grid-template-columns: 280px minmax(0, 1fr)
+      }
+    }
+
+    @media (max-width:900px) {
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .sidebar {
+        position: static
+      }
+    }
+
+    @media (max-width:640px) {
+      .grid {
+        grid-template-columns: repeat(6, 1fr)
+      }
+
+      .card {
+        grid-column: span 6
+      }
+    }
+
+    /* =========================
+   Tema claro para code blocks
+   Activa con: <body class="theme-light">
+   ========================= */
+    .theme-light .prose pre code:not(.hljs) {
+      color: #0F172A
+    }
+
+    .theme-light .prose pre {
+      background: #F8FAFC;
+      border: 1px solid #E5E7EB;
+      border-radius: 10px;
+      padding: 14px;
+      overflow: auto;
+      color: #0F172A;
+      margin: var(--space-3, 24px) 0;
+    }
+
+    .theme-light .prose code,
+    .theme-light .hljs {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: var(--code-font-size)
+    }
+
+    .theme-light .hljs-comment,
+    .theme-light .hljs-quote {
+      color: #6B7280;
+      font-style: italic
+    }
+
+    .theme-light .hljs-keyword,
+    .theme-light .hljs-selector-tag,
+    .theme-light .hljs-doctag,
+    .theme-light .hljs-built_in,
+    .theme-light .hljs-literal,
+    .theme-light .hljs-type {
+      color: #1D4ED8;
+      font-weight: 600
+    }
+
+    .theme-light .hljs-string,
+    .theme-light .hljs-meta .hljs-string,
+    .theme-light .hljs-attr {
+      color: #15803D
+    }
+
+    .theme-light .hljs-number,
+    .theme-light .hljs-literal.hljs-boolean {
+      color: #B45309
+    }
+
+    .theme-light .hljs-title,
+    .theme-light .hljs-title.class_,
+    .theme-light .hljs-title.function_ {
+      color: #7C3AED;
+      font-weight: 600
+    }
+
+    .theme-light .hljs-variable,
+    .theme-light .hljs-template-variable,
+    .theme-light .hljs-params {
+      color: #0EA5E9
+    }
+
+    .theme-light .hljs-attribute,
+    .theme-light .hljs-property {
+      color: #334155
+    }
+
+    .theme-light .hljs-punctuation,
+    .theme-light .hljs-symbol {
+      color: #475569
+    }
+
+    .theme-light .hljs-emphasis {
+      font-style: italic
+    }
+
+    .theme-light .hljs-strong {
+      font-weight: 700
+    }
+
+    .theme-light .hljs-ln-code .hljs-ln-line {
+      display: block;
+      position: relative;
+      line-height: var(--code-lh);
+      padding-left: var(--code-gutter)
+    }
+
+    .theme-light .hljs-ln-code .hljs-ln-line::before {
+      counter-increment: ln;
+      content: counter(ln);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: calc(var(--code-gutter) - .6em);
+      text-align: right;
+      color: #94A3B8;
+      border-right: 1px solid #E5E7EB;
+      padding-right: .6em;
+      user-select: none;
+      background: transparent;
+    }
+
+    /* Resalte opcional de una línea concreta (ej: data-ln="12") */
+    .theme-light .hljs-ln-code .hljs-ln-line[data-ln="12"] {
+      background: rgba(30, 64, 175, .06)
+    }
+
+    /* =========================
+   Tipografía & espaciados de la prosa
+   ========================= */
+    .prose {
+      display: flow-root;
+    }
+
+    .prose .bootnote {
+      margin-block: var(--space-3)
+    }
+
+    .prose li .bootnote {
+      margin-block: var(--space-2)
+    }
+
+    .prose p+.bootnote {
+      margin-top: var(--space-3)
+    }
+
+    .prose .bootnote+p {
+      margin-top: var(--space-3)
+    }
+
+    .prose .bootnote+.bootnote {
+      margin-top: var(--space-3)
+    }
+
+    .prose td .bootnote,
+    .prose th .bootnote {
+      margin-block: var(--space-2)
+    }
+
+    .prose h1 {
+      margin-top: 1.6em;
+      margin-bottom: .9em
+    }
+
+    .prose h2 {
+      margin-top: 1.3em;
+      margin-bottom: .8em
+    }
+
+    .prose h3 {
+      margin-top: 1.1em;
+      margin-bottom: .7em
+    }
+
+    .prose h4 {
+      margin-top: .9em;
+      margin-bottom: .6em
+    }
+
+    .prose h5 {
+      margin-top: .8em;
+      margin-bottom: .5em
+    }
+
+    .prose h6 {
+      margin-top: .7em;
+      margin-bottom: .5em
+    }
+
+    .prose> :first-child:is(h1, h2, h3, h4, h5, h6) {
+      margin-top: 0
+    }
+
+    .prose :is(.bootnote, table, pre)+ :is(h1, h2, h3, h4, h5, h6) {
+      margin-top: 1.4em
+    }
+
+    .prose li {
+      line-height: 1.6
+    }
+
+    .prose li+li {
+      margin-top: .35em
+    }
+
+    .prose ul ul li+li,
+    .prose ol ol li+li,
+    .prose ul ol li+li,
+    .prose ol ul li+li {
+      margin-top: .25em
+    }
+
+    .prose li> :is(p, .bootnote, pre, table) {
+      margin-top: .35em;
+      margin-bottom: .35em
+    }
+
+    /* =========================
+   Utilidades varias
+   ========================= */
+    #contentArea {
+      min-width: 0
+    }
+
+    .card .head {
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .card .head a {
+      display: block;
+      line-height: 1.2;
+      margin-top: 2px;
+      overflow-wrap: anywhere
+    }
+
+    /* =========================
+   SOFT THEME — overrides
+   Pega este bloque al final de tu CSS actual
+   ========================= */
+    :root {
+      /* Fondo y superficies */
+      --bg: #FAFBFC;
+      --surface: #FFFFFF;
+      --text: #1B2432;
+      /* un poco menos “negro” que #0F172A */
+      --border: #E8EBF0;
+
+      /* Muted */
+      --muted-400: #A0A8B8;
+      --muted-600: #6D7587;
+
+      /* Primarios (indigo desaturado, más suave) */
+      --primary-50: #F3F5FF;
+      --primary-100: #E9EDFF;
+      --primary-300: #C7D1FD;
+      --primary-600: #4E6BD6;
+      /* AA sobre blanco (≈4.77:1) */
+      --primary-700: #3B5CC3;
+      /* AA cómodo sobre blanco (≈5.99:1) */
+
+      /* Acentos en pasteles */
+      --info-100: #EAF2FF;
+      --info-300: #BFD5FF;
+      --info-700: #2F63C7;
+      --success-100: #E8FAF0;
+      --success-300: #BDEFD2;
+      --success-700: #1E7D4A;
+      --warning-100: #FFF6E5;
+      --warning-300: #FDE2B2;
+      --warning-700: #8D5A12;
+      --important-100: #FFEFE3;
+      --important-300: #FFD4B6;
+      --important-700: #8A4A18;
+      --purple-500: #7B6CF6;
+      --cyan-500: #25B7C6;
+      --orange-500: #F4A64A;
+
+      /* Enlaces / CTA */
+      --link: var(--primary-700);
+
+      /* Sombras más suaves */
+      --shadow: 0 10px 24px rgba(15, 23, 42, .06);
+
+      /* Panel nube más claro */
+      --panel: #F7F9FD;
+    }
+
+    /* Header más suave (navy desaturado) */
+    header {
+      background: linear-gradient(180deg, #1C2B44 0%, #22314F 100%);
+      box-shadow: 0 6px 24px rgba(16, 24, 40, .12);
+    }
+
+    .brand .logo {
+      background: radial-gradient(120% 100% at 20% 10%, #8EA2F8 0%, #6F85E8 55%, #5263B8 100%);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .10), 0 4px 10px rgba(82, 99, 184, .28);
+    }
+
+    /* Buscador: campos menos “night mode” */
+    .search input {
+      border: 1px solid #2A3A58;
+      background: #162544;
+      /* antes #0f1b36 */
+      color: #EEF2F8;
+    }
+
+    .search input::placeholder {
+      color: #B9C3D6;
+    }
+
+    .search button {
+      background: #2A4C8F;
+    }
+
+    /* más claro que #11306b */
+
+    /* Tarjetas: hover aún más sutil */
+    .card {
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, .08);
+      border-color: #DCE2EA;
+    }
+
+    /* Linkcards (últimos artículos) más pastel */
+    .linkcard::before {
+      border-left-color: #7ECFE0;
+    }
+
+    /* cyan pastel */
+    .linkcard .icn {
+      background: #F3F7FF;
+    }
+
+    /* Callouts (bootnote) con fondos más claros */
+    .bootnote {
+      background: #F8FAFD;
+    }
+
+    .bootnote.note {
+      background: #F2F7FF;
+      border-color: #E6EEFF;
+    }
+
+    .bootnote.question {
+      background: #F4FEF6;
+      border-color: #E4F7EA;
+    }
+
+    .bootnote.warning {
+      background: #FFF8EA;
+      border-color: #FFEBC6;
+    }
+
+    .bootnote.important {
+      background: #FFF3EB;
+      border-color: #FFE0C9;
+    }
+
+    .bootnote.link {
+      background: #F7F5FF;
+      border-color: #EDEBFF;
+    }
+
+    /* Spinner con acento suave */
+    .loading .ring {
+      border-color: var(--border);
+      border-top-color: var(--primary-600);
+    }
+
+    /* Prosa y tablas: bordes aún más suaves */
+    .prose th,
+    .prose td {
+      border-color: var(--border);
+    }
+
+    .prose tr:nth-child(even) td {
+      background: #FAFBFF;
+    }
+
+    /* Disclaimer con tono menos agresivo (si lo muestras) */
+    .article .disclaimer {
+      color: #7A8396;
+      border-top-color: var(--border);
+    }
+  </style>
+</head>
+
+<body class="theme-light">
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo"></div>
+        <span id="appTitle"></span>
+      </div>
+      <form class="search" id="searchForm">
+        <input id="q" placeholder="Buscador de artículos" autocomplete="off"/>
+        <button type="submit">Buscar</button>
+      </form>
+    </div>
+  </header>
+  <!-- <main id="app"></main> -->
+  <main>
+    <div class="layout">
+      <!-- Sidebar izquierda -->
+      <aside class="sidebar">
+        <div class="section">
+          <div class="sidebar-title">Artículos</div>
+          <nav id="navIndex" class="nav"></nav>
+        </div>
+
+        <div class="section" id="tocSection" style="display:none">
+          <div class="sidebar-title">En este artículo</div> <!-- <- renombrado -->
+          <nav id="toc" class="nav"></nav>
+        </div>
+
+        <!-- NUEVO: Últimos artículos -->
+        <div class="section" id="latestSection" style="display:none">
+          <div class="sidebar-title">Últimos artículos</div>
+          <div id="latestList"></div>
+        </div>
+      </aside>
+
+      <!-- Contenido central -->
+      <section id="contentArea">
+        <!-- Home -->
+        <section id="homeView" style="display:none">
+          <div id="homeWrap" class="grid"></div>
+        </section>
+
+        <!-- Artículo -->
+        <section id="articleView" style="display:none">
+          <article class="article">
+            <div class="meta" id="meta"></div>
+            <div class="hr"></div>
+            <div class="prose" id="content"></div>
+            <div class="disclaimer">
+              DISCLAIMER - DISCLAIMER - DISCLAIMER - DISCLAIMER - DISCLAIMER - DISCLAIMER
+            </div>
+          </article>
+        </section>
+      </section>
+
+
+      <!-- Rail derecho -->
+      <aside class="rail" id="rightRail">
+        <div class="panel">
+          <div class="panel-title">Enlaces</div>
+          <div id="railLinks"></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // ===== TÍTULO (Single Source of Truth) =====
+    window.APP_TITLE = "Simple Wiki";
+
+    const CLOUD_TIMEOUT_MS = 20000;
+    let CLOUD_REQ_ID = 0;
+    let CLOUD_TIMER = null;
+
+    function applyAppTitle(t){
+      const title = String(t || window.APP_TITLE || "Wiki");
+      document.title = title;
+      const elTitle = document.getElementById("appTitle");
+      if (elTitle) elTitle.textContent = title;
+    }
+
+    // aplicar apenas carga el script
+    applyAppTitle();
+
+
+    // perfil por defecto para el viewer
+    window.SIMPLEWIKI_AUTHUSER = '0';
+    window.SIMPLEWIKI_THUMB_SIZE = 'w1200';
+    
+    // ===== DEBUG =====
+    const DEBUG_CODE = true; // poné false para silenciar
+
+    function dbg(...args){ if (DEBUG_CODE) console.log(...args); }
+
+    // Resumen de cada <pre><code>
+    function inspectCodeBlocks(where, root=document){
+      const blocks = [...root.querySelectorAll('pre code')];
+      dbg(`[%c${where}%c] bloques: ${blocks.length}`, 'color:#056', 'color:inherit');
+
+      blocks.forEach((code, i) => {
+        const txt = code.textContent ?? '';
+        const hasCR   = /\r/.test(txt);
+        const hasLF   = /\n/.test(txt);
+        const nLF     = (txt.match(/\n/g) || []).length;
+        const classes = [...code.classList].join(' ');
+        const sample  = txt.split('\n')[0].slice(0, 120);
+
+        dbg(`  #${i} clases="${classes}" len=${txt.length} LF=${nLF} hasCR=${hasCR} hasLF=${hasLF} sample:`, sample);
+
+        // Si ya numeramos, medimos altura/line-height
+        if (code.classList.contains('hljs-ln-code')) {
+          const cs = getComputedStyle(code.querySelector('.hljs-ln-line'));
+          const lh = parseFloat(cs.lineHeight);
+          const lines = code.querySelectorAll('.hljs-ln-line').length;
+          const est = Math.round(lines * lh);
+          dbg(`     numerado: lines=${lines} line-height=${cs.lineHeight} (~${est}px) scrollH=${code.scrollHeight}px`);
+        }
+      });
+    }
+
+    function showCssVars(){
+      const r = getComputedStyle(document.documentElement);
+      dbg('[vars] --code-lh =', r.getPropertyValue('--code-lh'));
+      dbg('[vars] --code-gutter =', r.getPropertyValue('--code-gutter'));
+    }
+
+
+    /**
+    * Genera un hash numérico simple a partir de una cadena de texto.
+    * @param {string} s La cadena de entrada.
+    * @returns {number} Un hash de 32 bits.
+    */
+    function hashCode(s){ let h=0; for(let i=0;i<s.length;i++){ h=((h<<5)-h)+s.charCodeAt(i)|0; } return h; }
+
+    /**
+     * Calcula un factor de escala para el tamaño de fuente basado en la frecuencia de una palabra.
+     * @param {number} count La frecuencia de la palabra.
+     * @param {number} min La frecuencia mínima en el conjunto de datos.
+     * @param {number} max La frecuencia máxima en el conjunto de datos.
+     * @returns {number} Un factor de escala para usar en 'font-size'.
+     */
+    function scaleFont(count, min, max){
+      if (max === min) return 1.2;
+      // escala 0.8x–2.2x sobre 16px (ajusta a gusto)
+      return 0.8 + ((count - min) / (max - min)) * 1.4;
+    }
+
+    /**
+     * Formatea una fecha en formato ISO 8601 a una cadena legible en español.
+     * Utiliza la zona horaria del script si está disponible globalmente en `window.APP_TZ`.
+     * @param {string} iso La cadena de fecha en formato ISO.
+     * @returns {string} La fecha formateada (ej. "29/09/2025, 22:10").
+     */
+    function fmtDate(iso){
+      try {
+        return new Date(iso).toLocaleString('es-ES', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          // si quieres segundos, descomenta la siguiente línea
+          // second: '2-digit',
+          hour12: false,        // <- fuerza 24h
+          hourCycle: 'h23',     // <- explícito para algunos navegadores
+          timeZone: window.APP_TZ || undefined // usa TZ del script si la guardas
+        });
+      } catch (e) {
+        return iso || '';
+      }
+    }
+
+    // ========= helpers =========
+
+    // ===== DEBUG LINKS/IMGS =====
+    var RE_LINK_CAND = /\[[^\]]+]\s*\(\s*(?:<[^>]+>|[^)]+?)\s*(?:(?:"[^"]*")|(?:'[^']*'))?\s*\)/g;
+    var RE_IMG_CAND  = /!\[[^\]]*]\s*\(\s*(?:<[^>]+>|[^)]+?)\s*(?:(?:"[^"]*")|(?:'[^']*'))?\s*\)/g;
+
+    function rewriteDriveImgsInDom(root){
+      try{
+        (root || document).querySelectorAll('img').forEach(function(img){
+          var src = img.getAttribute('src') || '';
+          if (!src) return;
+
+          // no reescribir si ya es /thumbnail?id=...
+          if (/^https?:\/\/drive\.google\.com\/thumbnail\?/.test(src)) return;
+
+          if (/drive\.google\.com|googleusercontent\.com|\/uc\?|\/file\/d\//i.test(src)) {
+            // si el <img> tiene width fijo, podés mapearlo a sz=wNNN
+            var w = (img.getAttribute('width') || '').replace(/\D/g,'');
+            var sz = w ? ('w' + w) : (window.SIMPLEWIKI_THUMB_SIZE || 'w1200');
+
+            var neo = rewriteDriveImageSrc(src, { sz: sz });
+            if (neo && neo !== src) {
+              img.setAttribute('src', neo);
+              console.log('[img-rewrite]', src, '→', neo);
+            }
+          }
+        });
+      } catch(e){ console.warn('[rewriteDriveImgsInDom] error', e); }
+    }
+
+
+    function scanMdDiagnostics(md) {
+      var s = String(md || '');
+      var nHttp   = (s.match(/https?:\/\//g) || []).length;
+      var nBrackL = (s.match(/\[[^\]]+]\s*\(/g) || []).length;
+      var nBrackI = (s.match(/!\[[^\]]*]\s*\(/g) || []).length;
+      var nAngle  = (s.match(/<https?:\/\/[^>]+>/g) || []).length;
+      console.log('[md-scan] len=', s.length, 'http=', nHttp, ' [x](', nBrackL, ' ![x](', nBrackI, ' <http>', nAngle);
+      var m = s.match(/https?:\/\/[^\s)>\]]+/g) || [];
+      m.slice(0, 5).forEach(function(u,i){ console.log('   url['+i+']', u); });
+    }
+
+    function _count(pattern, s){ try{ var m = String(s||'').match(pattern); return m? m.length : 0; } catch(e){ return 0; } }
+
+    function _summarizePhase(label, input, output) {
+      try {
+        var candLinks = _count(RE_LINK_CAND, input);
+        var candImgs  = _count(RE_IMG_CAND,  input);
+        var outA   = _count(/<a\b/gi, output);
+        var outImg = _count(/<img\b/gi, output);
+        dbg('[links:'+label+'] cand: links='+candLinks+', imgs='+candImgs+'  -> out: <a>='+outA+', <img>='+outImg);
+        if (candLinks) {
+          var i=0;
+          RE_LINK_CAND.lastIndex = 0;
+          var mm = String(input||'').match(RE_LINK_CAND) || [];
+          mm.slice(0,5).forEach(function(x){ dbg('   match['+(++i)+']', x); });
+          if (mm.length>5) dbg('   ... '+(mm.length-5)+' más');
+        }
+      } catch(e) {}
+    }
+
+    // Resalta anchors en el DOM para verlos “a ojo”
+    function diagnoseRenderedLinks(root){
+      try {
+        root = root || document;
+        var as   = root.querySelectorAll('a');
+        var imgs = root.querySelectorAll('img');
+        dbg('[dom] anchors=', as.length, ' imgs=', imgs.length);
+
+        // Pinta contorno para verlos
+        as.forEach(function(a, i){
+          a.style.outline = '2px dashed #1d4ed8';
+          a.style.outlineOffset = '2px';
+          if (i<5) dbg('  a#'+i+':', a.outerHTML);
+        });
+        imgs.forEach(function(im, i){
+          if (i<3) dbg('  img#'+i+':', im.getAttribute('src'));
+        });
+      } catch(e) { dbg('[dom] diagnose error', e); }
+    }
+
+    function linkifyTextNodes(root){
+      try {
+        root = root || document;
+        var RE = /((?:https?:\/\/|mailto:)[^\s<>()]+)(?=[\s).,!?:;"]|$)/gi;
+
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode: function(node) {
+            if (!node.nodeValue) return NodeFilter.FILTER_REJECT;
+            RE.lastIndex = 0; // <- agrega esto
+            if (!RE.test(node.nodeValue)) return NodeFilter.FILTER_REJECT;
+            const p = node.parentElement;
+            if (!p) return NodeFilter.FILTER_REJECT;
+            if (/^(a|code|pre|script|style)$/i.test(p.tagName)) return NodeFilter.FILTER_REJECT;
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        });
+
+        var nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+
+        nodes.forEach(function(node){
+          var text = node.nodeValue;
+          var frag = document.createDocumentFragment();
+          var last = 0, m;
+          RE.lastIndex = 0;
+
+          while ((m = RE.exec(text))) {
+            var before = text.slice(last, m.index);
+            if (before) frag.appendChild(document.createTextNode(before));
+
+            var url = m[1];
+            var a = document.createElement('a');
+            a.setAttribute('href', url);
+            if (/^https?:/i.test(url)) { a.setAttribute('target','_blank'); a.setAttribute('rel','noopener noreferrer'); }
+            a.textContent = url;
+            frag.appendChild(a);
+
+            last = RE.lastIndex;
+          }
+          var tail = text.slice(last);
+          if (tail) frag.appendChild(document.createTextNode(tail));
+
+          node.parentNode.replaceChild(frag, node);
+        });
+
+      } catch(e) { console.warn('[linkifyTextNodes] error', e); }
+    }
+
+
+    /**
+    * Alias para document.getElementById.
+    * @param {string} id El ID del elemento a buscar.
+    * @returns {HTMLElement|null} El elemento del DOM encontrado.
+    */
+    const el = id=>document.getElementById(id);
+
+    /**
+    * Verifica si el entorno de Google Apps Script está disponible.
+    * @returns {boolean} True si `google.script.run` existe.
+    */
+    const hasGAS = ()=> (typeof google!=="undefined" && google.script && google.script.run);
+
+    /**
+    * Escapa caracteres especiales de HTML en una cadena de texto.
+    * @param {string} s La cadena a escapar.
+    * @returns {string} La cadena segura para insertar en HTML.
+    */
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+
+    /**
+    * Comprueba si una URL es segura para ser renderizada en un enlace o imagen.
+    * @param {string} url La URL a verificar.
+    * @returns {boolean} True si la URL es relativa, un ancla o usa un protocolo seguro (http, https, mailto).
+    */
+    const isSafeUrl = (url)=>{ try{ if(!url) return false; if(url.startsWith("#")||url.startsWith("/")) return true; const u=new URL(url,location.origin); return ["http:","https:","mailto:"].includes(u.protocol);}catch{return false;} };
+
+   /**
+    * Convierte una cadena de texto en un identificador válido y URL-friendly (slug).
+    * @param {string} s La cadena de entrada.
+    * @returns {string} El slug normalizado.
+    */
+    const slugifyId = (s)=> s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9\s-]/g,"").trim().replace(/\s+/g,"-").replace(/-+/g,"-");
+
+    function toDriveThumbnail(id, sz) {
+      var size = sz || window.SIMPLEWIKI_THUMB_SIZE || 'w1200';
+      return 'https://drive.google.com/thumbnail?id=' +
+            encodeURIComponent(id) + '&sz=' + encodeURIComponent(size);
+    }
+
+    function parseThumbSize(title) {
+      // acepta "w1200", "s1600" o "sz=w1200"
+      var t = String(title || '');
+      var m = t.match(/\b(?:sz=)?(w\d+|s\d+)\b/i);
+      return m ? m[1] : (window.SIMPLEWIKI_THUMB_SIZE || 'w1200');
+    }
+
+
+    /** Extrae el ID de Drive desde varias URLs */
+    function driveIdFrom(src) {
+      try {
+        const raw = String(src || '').trim().replace(/^<|>$/g, '');
+        const u = new URL(raw, location.origin);
+        const mPath = u.pathname.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+        if (mPath && mPath[1]) return mPath[1];
+        const qid = u.searchParams.get('id');
+        if (qid) return qid;
+        const mId = raw.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+        if (mId && mId[1]) return mId[1];
+        return null;
+      } catch (e) {
+        const s = String(src || '');
+        const m1 = s.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+        if (m1 && m1[1]) return m1[1];
+        const m2 = s.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+        return (m2 && m2[1]) || null;
+      }
+    }
+
+    function toDriveDownload(id, authuser) {
+      const au = (authuser != null ? String(authuser) : '0');
+      return 'https://drive.usercontent.google.com/download?id=' +
+            encodeURIComponent(id) + '&authuser=' + encodeURIComponent(au);
+    }
+
+    function rewriteDriveImageSrc(src, opts) {
+      try {
+        var raw = String(src || '').trim();
+        if (!raw) return src;
+
+        // si ya es /thumbnail?id=..., solo normalizamos el tamaño si vino en opts
+        var mThumb = raw.match(/^https?:\/\/drive\.google\.com\/thumbnail\?([^#]+)/i);
+        if (mThumb) {
+          var q = new URLSearchParams(mThumb[1]);
+          var id = q.get('id') || driveIdFrom(raw);
+          var sz = (opts && opts.sz) || q.get('sz') || (window.SIMPLEWIKI_THUMB_SIZE || 'w1200');
+          return id ? toDriveThumbnail(id, sz) : src;
+        }
+
+        // casos conocidos: /uc?id=..., /file/d/<id>/..., open?id=...
+        if (/drive\.google\.com|googleusercontent\.com/i.test(raw) || /\b(id=|\/d\/)/i.test(raw)) {
+          var id2 = driveIdFrom(raw);
+          if (id2) {
+            var sz2 = (opts && opts.sz) || (window.SIMPLEWIKI_THUMB_SIZE || 'w1200');
+            return toDriveThumbnail(id2, sz2);
+          }
+        }
+
+        return src;
+      } catch (e) {
+        return src;
+      }
+    }
+
+    function autolinkOutsideCodeAndAnchors(html) {
+      var parts = html.split(/(<code>[\s\S]*?<\/code>|<a\b[^>]*>[\s\S]*?<\/a>)/gi);
+      function makeA(url) {
+        if (!isSafeUrl(url)) return url;
+        var isHttp = /^https?:/i.test(url);
+        var attrs = isHttp ? ' target="_blank" rel="noopener noreferrer"' : '';
+        var safe = escapeHtml(url);
+        return '<a href="' + safe + '"' + attrs + '>' + safe + '</a>';
+      }
+      return parts.map(function (chunk) {
+        if (/^<(code|a)\b/i.test(chunk)) return chunk;
+        chunk = chunk.replace(/&lt;((?:https?:\/\/|mailto:)[^ \t\r\n<>]+)&gt;/gi, function (_, url) {
+          return makeA(url);
+        });
+        chunk = chunk.replace(/(^|[\s(])((?:https?:\/\/|mailto:)[^\s<>()]+)(?=[\s).,!?:;"]|$)/gi, function (_, pre, url) {
+          return pre + makeA(url);
+        });
+        return chunk;
+      }).join('');
+    }
+
+    function inlineMarkdown(str){
+      var original = String(str || '');
+      var s = escapeHtml(original);
+
+      // 0) Snapshot "antes"
+      _summarizePhase('before', original, s);
+
+      // 1) Código inline
+      s = s.replace(/`([^`]+?)`/g, function (_, c) { return '<code>' + c + '</code>'; });
+
+      // 2) IMÁGENES (Drive → thumbnail)
+      s = s.replace(
+        /!\[([^\]]*)\]\s*\(\s*(?:<([^>]+)>|([^)]+?))\s*(?:(?:"([^"]*)")|(?:'([^']*)'))?\s*\)/g,
+        function (_, alt, u1, u2, t1, t2) {
+          var orig = (u1 || u2 || '').trim();
+          if (!orig) return escapeHtml(alt || '');
+
+          var sz = parseThumbSize(t1 || t2 || '');
+          var src = rewriteDriveImageSrc(orig, { sz: sz });
+          if (!isSafeUrl(src)) return escapeHtml(alt || '');
+
+          var title = (t1 || t2 || '');
+          var t = title ? ' title="' + escapeHtml(title) + '"' : '';
+          return '<img src="' + escapeHtml(src) + '" alt="' + escapeHtml(alt || '') +
+                '" loading="lazy" decoding="async"' + t + '>';
+        }
+      );
+
+
+      // 3) LINKS [texto](url "title")  [permite ] ( y título ' o "]
+      s = s.replace(
+        /\[([^\]]+)\]\s*\(\s*(?:<([^>]+)>|([^)]+?))\s*(?:(?:"([^"]*)")|(?:'([^']*)'))?\s*\)/g,
+        function (_, text, u1, u2, t1, t2) {
+          var href = (u1 || u2 || '').trim();
+          if (!isSafeUrl(href)) return text;
+          var title = (t1 || t2 || '');
+          var t = title ? ' title="' + escapeHtml(title) + '"' : '';
+          var ext = /^https?:/i.test(href);
+          return '<a href="' + escapeHtml(href) + '"' + t +
+                (ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' +
+                text + '</a>';
+        }
+      );
+
+      // 4) Énfasis básico
+      s = s.replace(/(\*\*|__)(.+?)\1/g, "<strong>$2</strong>");
+      s = s.replace(/(^|\W)\*(?!\*)([^*]+?)\*(?!\*)/g, "$1<em>$2</em>");
+      s = s.replace(/(^|\W)_(?!_)([^_]+?)_(?!_)/g, "$1<em>$2</em>");
+      
+      // 5) Autolink (bare URLs + <https://...>) fuera de <code>/<a>
+      s = autolinkOutsideCodeAndAnchors(s);
+
+      // 6) Snapshot "después"
+      _summarizePhase('after', original, s);
+
+      return s;
+    }
+
+
+
+    /**
+    * Divide una fila de una tabla Markdown en celdas individuales.
+    * @private
+    * @param {string} line La línea que representa una fila de la tabla.
+    * @returns {string[]} Un array con el contenido de cada celda.
+    */
+    function splitRow(line){
+      if (line == null) return [];
+      let r = String(line).trim();
+      if (!r) return [];
+      if (r.startsWith("|")) r = r.slice(1);
+      if (r.endsWith("|")) r = r.slice(0, -1);
+      return r.split("|").map(c => c.replace(/\\\|/g, "|").trim());
+    }
+
+    /**
+    * Verifica si una línea de Markdown corresponde a la fila de alineación de una tabla.
+    * @private
+    * @param {string} line La línea a verificar.
+    * @returns {boolean} True si es una fila de alineación.
+    */
+    function isAlignRow(line){
+      if (line == null) return false;
+      const cells = splitRow(line);
+      if (!cells.length) return false;
+      return cells.every(c => /^:?-{3,}:?$/.test(c));
+    }
+
+    /**
+    * Parsea un bloque de tabla GFM a partir de un array de líneas.
+    * @private
+    * @param {string[]} lines El array completo de líneas del documento.
+    * @param {number} i El índice de la línea donde comienza la tabla.
+    * @returns {{html: string, next: number}|null} Un objeto con el HTML de la tabla y el índice de la siguiente línea, o null si no es una tabla.
+    */
+    function parseTable(lines, i){
+      const head = lines[i];
+      const sep  = lines[i+1];
+
+      // Necesitamos línea de alineación justo debajo
+      if (!isAlignRow(sep)) return null;
+
+      const headers = splitRow(head);
+      if (headers.length < 2) return null;
+
+      const aligns = splitRow(sep).map(c => {
+        const x = c.replace(/\s/g,"");
+        return x.startsWith(":") && x.endsWith(":") ? "center"
+            : x.endsWith(":")                      ? "right"
+            :                                         "left";
+      });
+
+      let j = i + 2;
+      const rows = [];
+      while (j < lines.length) {
+        const raw = lines[j];
+        if (!raw || !raw.trim()) break;                        // línea en blanco → fin
+        if (/^\s*```/.test(raw)) break;                        // empieza fence
+        if (/^\s*#/.test(raw)) break;                          // empieza encabezado
+        if (/^\s*(\*{3,}|-{3,}|_{3,})\s*$/.test(raw)) break;   // HR
+
+        const cells = splitRow(raw);
+        if (cells.length < 2) break;                           // ya no parece fila de tabla
+
+        rows.push(cells.map(c => inlineMarkdown(c)));
+        j++;
+      }
+
+      let html = "<table><thead><tr>";
+      headers.forEach((h,k) => {
+        html += `<th style="text-align:${aligns[k]||'left'}">${inlineMarkdown(h)}</th>`;
+      });
+      html += "</tr></thead><tbody>";
+      rows.forEach(r => {
+        html += "<tr>";
+        r.forEach((c,k)=> { html += `<td style="text-align:${aligns[k]||'left'}">${c}</td>`; });
+        html += "</tr>";
+      });
+      html += "</tbody></table>";
+
+      return { html, next: j };
+    }
+
+    /**
+    * Detecta y extrae la información de un marcador de lista (ordenada o no ordenada).
+    * @private
+    * @param {string} line La línea a analizar.
+    * @returns {{indent: number, type: 'ul'|'ol', text: string}|null} Un objeto con los datos de la lista o null.
+    */    
+    function listMarker(line){const a=line.match(/^(\s*)([-*+])\s+(.+)$/); if(a) return {indent:a[1].length,type:"ul",text:a[3]}; const b=line.match(/^(\s*)(\d+)\.\s+(.+)$/); if(b) return {indent:b[1].length,type:"ol",text:b[3]}; return null;}
+
+    function escapeForRegexLiteral(s){
+      return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    /**
+    * Convierte de forma segura una cadena de Markdown a HTML.
+    * Procesa el texto línea por línea para evitar XSS y manejar construcciones complejas
+    * como bloques de código, tablas, listas anidadas y admonitions personalizados.
+    * @param {string} md La cadena completa de Markdown.
+    * @param {number} [_depth=0] Nivel de recursión interna para admonitions.
+    * @returns {string} El HTML resultante y seguro.
+    */
+    function safeMarkdownToHtml(md, _depth = 0){
+      // ============================================
+      // PRE: Normaliza <code ...>...</code> a fences
+      // - Soporta lang="bash", data-lang="bash" o class="language-bash"
+      // - Solo convierte a bloque si hay salto de línea en el cuerpo
+      //   o si hay alguna pista de bloque (lang/data-lang/class/attr block)
+      // ============================================
+      md = String(md || '').replace(/\r\n?/g, '\n');
+      md = md.replace(/<code([^>]*)>([\s\S]*?)<\/code>/gi, (m, attrs = '', body = '') => {
+        const hasNL   = body.indexOf('\n') !== -1;
+        const hinted  = /(?:\bblock\b|\blang\s*=|\bdata-lang\s*=|\blanguage-)/i.test(attrs);
+        if (!hasNL && !hinted) return m; // probablemente era inline → no tocar
+
+        let lang = '';
+        const mLang  = attrs.match(/\blang\s*=\s*"([^"]+)"/i) || attrs.match(/\bdata-lang\s*=\s*"([^"]+)"/i);
+        if (mLang) lang = (mLang[1] || '').toLowerCase();
+        const mClass = attrs.match(/\bclass\s*=\s*"([^"]*)"/i);
+        if (mClass){
+          const cl = (mClass[1]||'').split(/\s+/).find(c=>/^language-/.test(c));
+          if (cl) lang = lang || cl.replace(/^language-/,'').toLowerCase();
+        }
+
+        // recorta bordes y de-indent común
+        let lines = String(body).replace(/\r\n?/g,'\n').split('\n');
+        while (lines.length && /^\s*$/.test(lines[0])) lines.shift();
+        while (lines.length && /^\s*$/.test(lines[lines.length-1])) lines.pop();
+        let minI = null;
+        for (const ln of lines){
+          if (!ln.trim()) continue;
+          const ind = (ln.match(/^[ \t]*/)||[''])[0].length;
+          minI = (minI==null)? ind : Math.min(minI, ind);
+        }
+        if (minI) lines = lines.map(ln => ln.replace(new RegExp(`^[ \\t]{0,${minI}}`), ''));
+        return '```' + (lang || '') + '\n' + lines.join('\n') + '\n```';
+      });
+
+      // ============================================
+      // Parser línea a línea (seguro)
+      // ============================================
+      const lines = md.split('\n');
+      const out = [], para = [], stack = [];
+      let i = 0, inCode = false, codeBuf = [];
+
+      const closePara = () => {
+        if (!para.length) return;
+        const t = para.join(' ').trim();
+        if (t) out.push(`<p>${inlineMarkdown(t)}</p>`);
+        para.length = 0;
+      };
+      const openList  = (t, ind) => { out.push(`<${t}>`); stack.push({ t, ind }); };
+      const closeOnce = () => { const x = stack.pop(); if (x) out.push(`</${x.t}>`); };
+      const closeTo   = (ind) => { while (stack.length && stack[stack.length-1].ind >= ind) closeOnce(); };
+
+      while (i < lines.length){
+        const line = lines[i];
+
+        // --- BOOTNOTE TAGS: <note>, <question>, <to-know|toknow>, <link>, <warning>, <important> ---
+        const KINDS = ['note','question','to-know','toknow','link','warning','important'];
+        const reOpen  = new RegExp('^\\s*<\\s*(' + KINDS.join('|') + ')(\\s+[^>]*)?>\\s*$', 'i');
+        const m = line.match(reOpen);
+        if (m){
+          closePara(); closeTo(0);
+          const rawKind = m[1].toLowerCase();
+          const kind = rawKind.replace(/[^a-z]/g,''); // to-know -> toknow
+
+          // acumular hasta el cierre </kind>
+          i++;
+          const reClose = new RegExp('^\\s*<\\/' + escapeForRegexLiteral(rawKind) + '\\s*>\\s*$', 'i');
+          const buf = [];
+          while (i < lines.length && !reClose.test(lines[i])) { buf.push(lines[i]); i++; }
+          if (i < lines.length) i++; // consume cierre
+
+          const LABELS = {
+            note:'Note', question:'Question', toknow:'To Know',
+            link:'Link', warning:'Warning', important:'Important'
+          };
+          const ICONS = {
+            note:'<path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 6h-2v2h2V8zm0 4h-2v6h2v-6z"/>',
+            question:'<path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 15h-2v-2h2v2zm2.1-7.3c0 1.9-2.1 2-2.1 3.3h-2c0-2.2 2.1-2.4 2.1-3.5 0-.7-.6-1.2-1.4-1.2-.8 0-1.4.5-1.7 1.2l-1.8-.9C8.7 7.3 10 6 11.9 6c1.9 0 3.2 1.1 3.2 3.7z"/>',
+            toknow:'<path d="M9 21h6v-2H9v2zm3-18a7 7 0 0 0-4 12v2h8v-2a7 7 0 0 0-4-12z"/>',
+            link:'<path d="M3.9 12a5 5 0 0 1 5-5h3v2h-3a3 3 0 0 0 0 6h3v2h-3a5 5 0 0 1-5-5zm6.1 1h4v-2h-4v2zm5-6h3a5 5 0 0 1 0 10h-3v-2h3a3 3 0 0 0 0-6h-3V7z"/>',
+            warning:'<path d="M1 21h22L12 2 1 21zm12-3h-2v2h2v-2zm0-8h-2v6h2v-6z"/>',
+            important:'<path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 5h-2v8h2V7zm0 10h-2v2h2v-2z"/>'
+          };
+
+          const inner = safeMarkdownToHtml(buf.join('\n'), _depth + 1);
+
+          out.push(
+            `<div class="bootnote ${kind}" role="note" data-kind="${kind}">` +
+              `<div class="bootnote__icon" aria-hidden="true">` +
+                `<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">${ICONS[kind]||ICONS.note}</svg>` +
+              `</div>` +
+              `<div class="bootnote__body">` +
+                `<div class="bootnote__title">${LABELS[kind]||'Note'}</div>` +
+                `<div class="bootnote__content">${inner}</div>` +
+              `</div>` +
+            `</div>`
+          );
+          continue;
+        }
+
+
+        // --- FENCES ```lang ---
+        if (/^\s*```/.test(line)){
+          closePara(); closeTo(0);
+          const mLang = line.match(/^\s*```(\S*)\s*$/);
+          const fenceLang = mLang && mLang[1] ? mLang[1].toLowerCase() : '';
+          if (inCode){
+            const cls = fenceLang ? ` class="language-${fenceLang}"` : '';
+            // lines dentro del fence: recorta blancos al inicio/fin
+            while (codeBuf.length && /^\s*$/.test(codeBuf[0])) codeBuf.shift();
+            while (codeBuf.length && /^\s*$/.test(codeBuf[codeBuf.length-1])) codeBuf.pop();
+            out.push(`<pre><code${cls}>${escapeHtml(codeBuf.join('\n'))}</code></pre>`);            
+            codeBuf = []; inCode = false; i++; continue;
+          } else {
+            inCode = true; i++;
+            while (i < lines.length && !/^\s*```\s*$/.test(lines[i])) { codeBuf.push(lines[i]); i++; }
+            if (i < lines.length) {
+              const cls = fenceLang ? ` class="language-${fenceLang}"` : '';
+              // lines dentro del fence: recorta blancos al inicio/fin
+              while (codeBuf.length && /^\s*$/.test(codeBuf[0])) codeBuf.shift();
+              while (codeBuf.length && /^\s*$/.test(codeBuf[codeBuf.length-1])) codeBuf.pop();
+              out.push(`<pre><code${cls}>${escapeHtml(codeBuf.join('\n'))}</code></pre>`);
+              codeBuf = []; inCode = false; i++;
+            }
+            continue;
+          }
+        }
+        if (inCode){ codeBuf.push(line); i++; continue; }
+
+        // --- Código indentado (4+ espacios o tab) ---
+        if (/^(?:\t| {4,})\S/.test(line)){
+          closePara(); closeTo(0);
+          const buf = [];
+          while (i < lines.length && /^(?:\t| {4,})\S?/.test(lines[i])) {
+            buf.push(lines[i].replace(/^(?:\t| {4})/, '')); // quita 1 tab o 4 espacios
+            i++;
+          }
+          out.push('<pre><code class="">' + escapeHtml(buf.join('\n')) + '</code></pre>');
+          continue;
+        }
+
+        // --- HR ---
+        if (/^\s*(\*{3,}|-{3,}|_{3,})\s*$/.test(line)){
+          closePara(); closeTo(0); out.push('<hr>'); i++; continue;
+        }
+
+        // --- Tabla GFM ---
+        const t = (i + 1 < lines.length) ? parseTable(lines, i) : null;
+        if (t){ closePara(); closeTo(0); out.push(t.html); i = t.next; continue; }
+
+        // --- Encabezados ---
+        const h = line.match(/^\s*(#{1,6})\s+(.+)$/);
+        if (h){
+          closePara(); closeTo(0);
+          const level = h[1].length;
+          const text  = h[2].trim();
+          const id    = slugifyId(text);
+          out.push(`<h${level} id="${id}">${inlineMarkdown(text)}</h${level}>`);
+          i++; continue;
+        }
+
+        // --- Listas anidadas ---
+        const lm = listMarker(line);
+        if (lm){
+          closePara();
+          const step = 2;
+          const indent = Math.floor(lm.indent / step) * step;
+          const top = stack[stack.length - 1];
+          if (!top || indent > top.ind) { openList(lm.type, indent); }
+          else if (indent < top.ind)    { closeTo(indent + 0.0001); const t2 = stack[stack.length-1]; if(!t2 || t2.t !== lm.type) openList(lm.type, indent); }
+          else if (top.t !== lm.type)   { closeOnce(); openList(lm.type, indent); }
+          out.push(`<li>${inlineMarkdown(lm.text.trim())}</li>`);
+          i++; continue;
+        }
+
+        // --- Línea en blanco → cierra párrafo ---
+        if (/^\s*$/.test(line)){ closePara(); i++; continue; }
+
+        // --- Párrafo ---
+        para.push(line.trim()); i++;
+      }
+
+      if (para.length){
+        const t = para.join(' ').trim();
+        if (t) out.push(`<p>${inlineMarkdown(t)}</p>`);
+      }
+      while (stack.length) closeOnce();
+
+      return out.join('\n');
+    }
+
+    // Estado simple para saber si estamos cargando el índice
+    const STATE = { loadingIndex: false };
+
+    function showSpinnerNav() {
+      const nav = document.getElementById('navIndex');
+      if (!nav) return;
+      nav.innerHTML = `
+        <div class="loading small" role="status" aria-live="polite">
+          <div class="ring"></div>
+          <div class="loading-msg">Cargando artículos…</div>
+        </div>`;
+    }
+
+    // ========= META (rail derecho) =========
+    /**
+    * Extrae un bloque de metadatos JSON de un fence ` ```meta ` al inicio del Markdown.
+    * @param {string} md El contenido completo del artículo en Markdown.
+    * @returns {{mdBody: string, meta: object}} Un objeto con el cuerpo del Markdown (sin el bloque meta) y los metadatos parseados.
+    */
+    function extractMeta(md){
+      const re = /^```meta\s*([\s\S]*?)\s*```/i;
+      const m = md.match(re);
+      if(!m) return { mdBody: md, meta: {} };
+      let meta={}; try{ meta=JSON.parse(m[1]); }catch(e){ meta={}; }
+      return { mdBody: md.replace(re,'').trimStart(), meta };
+    }
+
+    /** Muestra en el rail los 4 últimos artículos */
+    function renderLatestRailFromIndex(index, activeSlug) {
+      const links = buildLatestLinks(index, { excludeSlug: activeSlug, limit: 4 });
+      renderRightRail(links);
+    }
+
+    // ---- Últimos artículos (panel izquierdo) -------------------------------
+    function buildLatestLinks(index, { excludeSlug = null, limit = 4 } = {}) {
+      return (index || [])
+        .filter(x => x && x.slug && x.title)
+        .filter(x => x.slug !== excludeSlug)
+        .sort((a, b) => new Date(b.updated || 0) - new Date(a.updated || 0))
+        .slice(0, limit);
+    }
+
+    function renderLatestInSidebar(index, activeSlug) {
+      const sec = document.getElementById('latestSection');
+      const box = document.getElementById('latestList');
+      if (!sec || !box) return;
+
+      const items = buildLatestLinks(index, { excludeSlug: activeSlug, limit: 4 });
+
+      if (!items.length) { 
+        sec.style.display = 'none';
+        box.innerHTML = '';
+        return;
+      }
+
+      box.innerHTML = items.map(x => `
+        <a class="linkcard" href="#/p/${encodeURIComponent(x.slug)}">
+          <div class="icn">📄</div>
+          <div class="txt">
+            <div class="title">${escapeHtml(x.title)}</div>
+            <div class="desc">${fmtDate(x.updated)}</div>
+          </div>
+        </a>
+      `).join('');
+
+      sec.style.display = '';
+    }
+
+    function initialsFromName(name='') {
+      const parts = name.trim().split(/\s+/);
+      return (parts[0]?.[0] || '') + (parts[parts.length-1]?.[0] || '');
+    }
+
+    function colorFromString(s='') {
+      // HSL pseudo-aleatorio estable por nombre
+      let h = 0;
+      for (let i=0; i<s.length; i++) h = (h*31 + s.charCodeAt(i)) % 360;
+      return `hsl(${h} 70% 45%)`;
+    }
+
+    function renderArticleMeta(metaEl, { updatedISO, updated, updatedBy, updatedByPhoto }) {
+      if (!metaEl) return;
+      const name = updatedBy || '';
+      const when = fmtDate(updatedISO || updated);
+      const init = (initialsFromName(name) || '•').toUpperCase();
+      const bg   = colorFromString(name);
+
+      metaEl.innerHTML = `
+        <div class="meta-row">
+          <span class="avatar" style="--avatar:${bg}">
+            <img src="${escapeHtml(updatedByPhoto||'')}" alt="" onerror="this.style.display='none'">
+            <span class="initials">${escapeHtml(init)}</span>
+          </span>
+          <span>Última actualización ${escapeHtml(name || '—')} • ${escapeHtml(when)}</span>
+        </div>`;
+    }
+
+    function startLoadingArticle(msg) {
+      const content = el('content');
+      if (!content) return;
+      content.setAttribute('data-loading-article','1');
+      showLoading(content, msg || 'Cargando artículo…');
+    }
+
+    function stopLoadingArticle() {
+      const content = el('content');
+      if (!content) return;
+      // Solo limpia si el spinner lo puso la app
+      if (content.getAttribute('data-loading-article') === '1') {
+        content.removeAttribute('data-loading-article');
+        // Limpia cualquier spinner residual
+        content.querySelectorAll('.loading').forEach(n => n.remove());
+      }
+    }
+
+    // opcional: expónla al global por si Apps Script envuelve el scope
+    window.renderLatestInSidebar = renderLatestInSidebar;
+
+    // ========= App =========
+    let INDEX = [];
+
+    if (hasGAS()) {
+      STATE.loadingIndex = true;
+      showSpinnerNav();
+      google.script.run
+        .withSuccessHandler(items => {
+          INDEX = items || [];
+          STATE.loadingIndex = false;
+          route();
+        })
+        .withFailureHandler(err => {
+          const content = document.getElementById('content');
+          stopLoadingArticle();                 // <- barré spinner también en error
+          if (content) {
+            content.innerHTML = `<p class="muted">No se pudo cargar el artículo.</p>`;
+          }
+          console.error('[getIndex] error:', err);
+          renderNavIndex([], null); // opcional: saca el spinner del nav si falló
+        })
+        .getIndex();
+      google.script.run.withSuccessHandler(cfg => {
+        if (cfg && cfg.title) window.APP_TITLE = cfg.title;
+        applyAppTitle();
+      }).getScriptConfig();
+
+    }
+
+    window.addEventListener('hashchange', route);
+    el('searchForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const term = el('q').value.trim().toLowerCase();
+      if(!location.hash || location.hash==='' || location.hash==='#/' || location.hash==='#'){
+        renderHome(INDEX.filter(x=>x.title.toLowerCase().includes(term) || x.slug.includes(term)));
+      }
+      renderNavIndex(INDEX,null);
+    });
+    el('q').addEventListener('input', ()=> renderNavIndex(INDEX,null));
+
+    /**
+    * Enrutador principal de la aplicación.
+    * Lee el hash de la URL y decide qué vista renderizar (home o artículo).
+    * @returns {void}
+    */
+    function route(){
+      const h = location.hash.replace(/^#\//,'');
+      if (!h) { renderHome(INDEX); return; }
+
+      const m = h.match(/^p\/(.+)$/);
+      if (m) {
+        const slug = decodeURIComponent(m[1]);
+
+        // --- pinta el “esqueleto” + spinner YA MISMO ---
+        const { homeView, articleView, tocSection } = getContainers();
+        if (homeView) homeView.style.display = 'none';
+        if (articleView) articleView.style.display = '';
+        if (tocSection) tocSection.style.display = 'none';
+        const content = document.getElementById('content');
+        const meta    = document.getElementById('meta');
+        if (meta) meta.textContent = '';
+        startLoadingArticle('Cargando artículo…');
+        const rail = document.getElementById('rightRail');
+        const layout = document.querySelector('.layout');
+        if (rail) rail.style.display = 'none';
+        if (layout) layout.classList.add('no-rail'); 
+
+        // --- fetch al backend ---
+        google.script.run
+          .withSuccessHandler(d => renderArticle({ ...d, slug }))
+          .withFailureHandler(err => {
+            stopLoadingArticle();
+            if (content) content.innerHTML = `<p class="muted">No se pudo cargar el artículo.</p>`;
+            console.error('[getPage] error:', err);
+          })
+          .getPage(slug);
+
+      } else {
+        renderHome(INDEX);
+      }
+    }
+
+    // Helpers para no depender de #app
+    /**
+    * Obtiene referencias a los contenedores principales del DOM.
+    * @private
+    * @returns {{homeView: HTMLElement, articleView: HTMLElement, navIndex: HTMLElement, tocSection: HTMLElement}}
+    */
+    function getContainers() {
+      return {
+        homeView: document.getElementById('homeView'),
+        articleView: document.getElementById('articleView'),
+        navIndex: document.getElementById('navIndex'),
+        tocSection: document.getElementById('tocSection'),
+      };
+    }
+
+    /**
+    * Renderiza la vista principal (Home), que incluye un mensaje de bienvenida y la nube de palabras.
+    * @param {Array<{slug: string, title: string, updated: string}>} items Lista de artículos para el índice (puede estar pre-filtrada).
+    * @returns {void}
+    */
+    function renderHome(items) {
+      const { homeView, articleView, tocSection } = getContainers();
+
+      if (!homeView) {
+        console.error('No se encontró #homeView');
+        return;
+      }
+
+      // Mostrar/ocultar vistas
+      homeView.style.display = '';
+      if (articleView) articleView.style.display = 'none';
+      if (tocSection) tocSection.style.display = 'none';
+
+      // Sidebar izquierda (índice)
+      renderNavIndex(INDEX, null);
+
+      // Tarjetas de artículos (si quieres mantenerlas, puedes incluirlas debajo de la nube)
+      // Aquí solo dejamos bienvenida + nube para tu nueva landing
+      homeView.innerHTML = `
+        <div class="welcome article-width">
+          <h2 style="margin:0 0 6px">¡Bienvenido a ${escapeHtml(window.APP_TITLE || "Wiki")}!</h2>
+          <p class="muted" style="margin:0">
+            Usa la búsqueda superior o el índice de la izquierda. Abajo verás una nube con los términos más frecuentes de los artículos.
+          </p>
+        </div>
+
+        <div class="article-width">
+          <div class="cloud-card">
+            <div class="cloud-wrap">
+              <div id="cloud" class="cloud" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+
+      // Pinta el spinner dentro de la caja de la nube
+      const cloudBox = document.getElementById('cloud');
+      showLoading(cloudBox, 'Generando nube…');
+
+      // ---- Solicitud con timeout y generación ----
+      const myId = ++CLOUD_REQ_ID;
+
+      // limpia cualquier timer previo
+      if (CLOUD_TIMER) { clearTimeout(CLOUD_TIMER); CLOUD_TIMER = null; }
+
+      const settle = (fn) => {
+        // ejecuta 'fn' sólo si esta respuesta corresponde a la generación vigente
+        if (myId !== CLOUD_REQ_ID) return false;
+        if (CLOUD_TIMER) { clearTimeout(CLOUD_TIMER); CLOUD_TIMER = null; }
+        fn && fn();
+        return true;
+      };
+
+      CLOUD_TIMER = setTimeout(() => {
+        // si sigue vigente este pedido, avisamos y ofrecemos reintento
+        if (myId !== CLOUD_REQ_ID) return;
+        console.warn('[CLOUD] timeout tras', CLOUD_TIMEOUT_MS, 'ms');
+        if (cloudBox) {
+          cloudBox.innerHTML = `
+            <span class="muted">
+              La nube está tardando. <a href="#" id="retryCloud">Reintentar</a>
+            </span>`;
+          const link = document.getElementById('retryCloud');
+          if (link) link.addEventListener('click', (e) => {
+            e.preventDefault();
+            // forzá una nueva generación
+            renderHome(INDEX);
+          });
+        }
+      }, CLOUD_TIMEOUT_MS);
+
+      // Pide la nube al backend
+      const isGAS = hasGAS();
+      console.log('[CLOUD] hasGAS =', isGAS, 'INDEX.size =', (INDEX||[]).length);
+
+      if (isGAS) {
+        google.script.run
+          .withSuccessHandler(d => {
+            if (!settle(() => handleWordCloudResponse(d, { origin: 'GAS' }))) {
+              console.log('[CLOUD] respuesta ignorada (stale)');
+            }
+          })
+          .withFailureHandler(err => {
+            if (!settle(() => {
+              console.error('[CLOUD] getWordCloud() error:', err);
+              if (cloudBox) cloudBox.innerHTML = '<span class="muted">No se pudo generar la nube.</span>';
+            })) {
+              console.log('[CLOUD] error ignorado (stale)');
+            }
+          })
+          .getWordCloud();
+      } else {
+        // entorno sin google.script.run → render vacío y sin timer
+        if (CLOUD_TIMER) { clearTimeout(CLOUD_TIMER); CLOUD_TIMER = null; }
+        handleWordCloudResponse({ words: [] }, { origin: 'no-GAS' });
+      }
+
+      renderLatestInSidebar(INDEX, null);
+    }
+
+    /**
+    * Dibuja la nube de palabras en el DOM a partir de los datos del backend.
+    * @param {{words: Array<{word: string, count: number}>}} data Objeto que contiene las palabras y su frecuencia.
+    * @returns {void}
+    */
+    function drawCloud(data) {
+      const cont = document.getElementById('cloud');
+      console.log('[CLOUD] drawCloud input:', data);
+      if (!cont) return;
+
+      const words = (data && Array.isArray(data.words)) ? data.words : [];
+      if (!words.length) {
+        console.warn('[CLOUD] words vacío → se muestra “No hay suficientes artículos…”. ' +
+                    'Causas típicas: (1) no-GAS, (2) getWordCloud() devolvió otro formato o vacío, ' +
+                    '(3) tu extractor filtró todo.');
+        cont.innerHTML = `<span class="muted">No hay suficientes artículos para generar la nube.</span>`;
+        return;
+      }
+
+      const max = Math.max(...words.map(w => w.count), 1);
+      console.log('[CLOUD] rendering… wordsLen =', words.length, 'maxCount =', max);
+
+      cont.innerHTML = words.map(({ word, count }) => {
+        const size = Math.round(12 + (count / max) * 26);           // 12px → 38px
+        const hue  = 220 - Math.round((count / max) * 40);          // 220→180 (azules)
+        const col  = `hsl(${hue} 70% 35%)`;
+        return `<span style="font-size:${size}px;color:${col}">${escapeHtml(word)}</span>`;
+      }).join(' ');
+    }
+
+
+    /**
+    * Renderiza la lista de navegación de artículos en la barra lateral izquierda.
+    * Filtra los resultados según el término de búsqueda actual.
+    * @param {Array<{slug: string, title: string}>} items La lista completa de artículos.
+    * @param {string|null} active El slug del artículo actualmente activo, para resaltarlo.
+    * @returns {void}
+    */
+    function renderNavIndex(items, active){
+      const nav = el('navIndex');
+      if (STATE.loadingIndex) { showSpinnerNav(); return; }
+
+      const q = (el('q').value || '').trim().toLowerCase();
+
+      const base = Array.isArray(items) ? items : [];
+      const filtered = q
+        ? base.filter(x =>
+            (x.title || '').toLowerCase().includes(q) ||
+            (x.slug  || '').toLowerCase().includes(q)
+          )
+        : base;
+
+      // 🔽 Orden alfabético, ignorando tildes y mayúsculas
+      const sorted = filtered.slice().sort((a, b) => {
+        const ta = (a.title || a.slug || '').trim();
+        const tb = (b.title || b.slug || '').trim();
+        return ta.localeCompare(tb, 'es', { sensitivity: 'base', numeric: true });
+      });
+
+      nav.innerHTML = sorted.map(x =>
+        `<a class="${x.slug===active?'active':''}" href="#/p/${encodeURIComponent(x.slug)}">${escapeHtml(x.title)}</a>`
+      ).join('') || '<span class="muted">Sin resultados</span>';
+    }
+
+    /**
+    * Construye y muestra la tabla de contenidos ("En esta página") para el artículo actual,
+    * basándose en los encabezados H2 y H3 encontrados en el contenido.
+    * @returns {void}
+    */
+    function buildToc(){
+      const tocWrap=el('toc'), tocSec=el('tocSection');
+      const hs=el('content').querySelectorAll('h2,h3');
+      if(!hs.length){ tocSec.style.display='none'; tocWrap.innerHTML=''; return; }
+      let html='', prev=2, open=0;
+      hs.forEach(h=>{
+        const lvl=h.tagName==='H2'?2:3, id=h.id || slugifyId(h.textContent); if(!h.id) h.id=id;
+        if(lvl>prev){ html+='<ul>'; open++; } else if(lvl<prev){ while(open>0 && lvl<prev){ html+='</ul>'; open--; prev--; } }
+        html+=`<li><a href="#${id}">${escapeHtml(h.textContent)}</a></li>`; prev=lvl;
+      });
+      while(open-->0) html+='</ul>';
+      tocWrap.innerHTML=html; tocSec.style.display='';
+    }
+
+    function renderArticle(data){
+      stopLoadingArticle(); 
+      el('homeView').style.display='none';
+      el('articleView').style.display='';
+
+      const metaBox = el('meta');
+      const content = el('content');
+
+      console.log('[ARTICLE] slug=', data.slug);
+      console.log('[ARTICLE] updated=', data.updated);
+      console.log('[ARTICLE] updatedBy=', data.updatedBy);
+      console.log('[ARTICLE] updatedBySource=', data.updatedBySource);
+
+      // ---------- helpers inline para avatar ----------
+      const initialsFromName = (name='') => {
+        const p = name.trim().split(/\s+/).filter(Boolean);
+        if (!p.length) return '';
+        return (p[0][0] || '') + (p.length > 1 ? (p[p.length-1][0] || '') : '');
+      };
+      const colorFromString = (s='') => {
+        let h = 0; for (let i=0;i<s.length;i++) h = (h*31 + s.charCodeAt(i)) % 360;
+        return `hsl(${h} 70% 45%)`;
+      };
+
+      // ---------- meta: nombre/foto/fecha (una sola vez) ----------
+      const { mdBody, meta } = extractMeta(data.md || '');
+      scanMdDiagnostics(mdBody);       // <- NUEVO: mira si el MD trae http, [x]( ), etc.
+
+      let html = '';
+      try {
+        html = safeMarkdownToHtml(mdBody);
+      } catch (e) {
+        console.error('[safeMarkdownToHtml] error:', e);
+        html = '<p class="muted">Error al renderizar el contenido.</p>' +
+              '<pre style="white-space:pre-wrap;">' + escapeHtml(String(mdBody).slice(0, 4000)) + '</pre>';
+      }
+      content.innerHTML = html;
+
+      // Pase extra de autolink + reescritura imágenes (ahora SÍ hay contenido)
+      content.innerHTML = autolinkOutsideCodeAndAnchors(content.innerHTML);
+      linkifyTextNodes(content);
+      rewriteDriveImgsInDom(content);
+      diagnoseRenderedLinks(content);
+
+      const updatedISO = data.updatedISO || data.updated || '';
+      const updatedBy  = (data.updatedBy || meta.updatedBy || data.author || '').trim();
+      const updatedByPhoto = data.updatedByPhoto || meta.updatedByPhoto || '';
+      const when = updatedISO ? fmtDate(updatedISO) : (data.updated ? fmtDate(data.updated) : '');
+
+      if (metaBox){
+        if (!updatedBy && !when){
+          metaBox.style.display = 'none';
+        } else {
+          metaBox.style.display = '';
+          const initials = (initialsFromName(updatedBy) || '•').toUpperCase();
+          const bg = colorFromString(updatedBy);
+
+          metaBox.innerHTML = `
+            <div class="meta-row">
+              <span class="avatar" style="--avatar:${bg}">
+                ${updatedByPhoto
+                  ? `<img src="${escapeHtml(updatedByPhoto)}" alt=""
+                        onload="this.nextElementSibling && (this.nextElementSibling.style.display='none')"
+                        onerror="this.style.display='none'">`
+                  : ''
+                }
+                <span class="initials">${escapeHtml(initials)}</span>
+              </span>
+              <span>Última actualización ${escapeHtml(updatedBy || '—')} • ${escapeHtml(when || '')}</span>
+            </div>`;
+        }
+      }
+
+      // ---------- contenido ----------
+      if (data.kind === 'pdf' && data.pdfBase64){
+        const src = `data:application/pdf;base64,${data.pdfBase64}`;
+        content.innerHTML = `<object data="${src}" type="application/pdf" width="100%" height="900">
+          <p>No se pudo mostrar el PDF. <a href="${src}" download>Descargar</a></p></object>`;
+        el('rightRail').style.display='none';
+      } else {
+        const DEBUG = true;
+        if (DEBUG) {
+          console.log('[MD] slug:', data.slug);
+          console.log('[MD] updated:', data.updated);
+          console.log('[MD] raw length:', (data.md || '').length);
+          console.log('[MD] has fences ``` ?', (data.md || '').includes('```'));
+        }
+
+        // Pase extra de autolink (por si algo quedó pelado)
+        content.innerHTML = autolinkOutsideCodeAndAnchors(content.innerHTML);
+        linkifyTextNodes(content);                                            // <- NUEVO fallback DOM
+        rewriteDriveImgsInDom(content);
+
+        // Diagnóstico visual + log
+        diagnoseRenderedLinks(content);
+
+        dbg('[render] slug=', data.slug, 'updated=', data.updated, 'md len=', (data.md||'').length);
+        inspectCodeBlocks('0) post-md');
+
+        // Paso 0.5: normalizamos CRLF -> LF
+        content.querySelectorAll('pre code').forEach(c => {
+          const before = c.textContent.length;
+          c.textContent = c.textContent.replace(/\r\n?/g, '\n');
+          const after = c.textContent.length;
+          if (before !== after) dbg('   normalizado CRLF -> LF en un bloque');
+        });
+        inspectCodeBlocks('0.5) tras normalizar LF');
+
+        // Paso 1: <code> inline multilínea -> <pre><code>
+        promoteCodeTagsToBlocks(content);
+        inspectCodeBlocks('1) tras promover code->pre');
+
+        // Paso 3: numeración de líneas
+        addLineNumbers(content);
+        inspectCodeBlocks('3) tras numerar');
+        showCssVars();
+
+        buildToc();
+        renderLatestInSidebar(INDEX, data.slug);
+      }
+
+      renderNavIndex(INDEX, data.slug);
+    }
+
+
+    /**
+    * Busca etiquetas `<code>` que no estén dentro de un `<pre>` y las promueve a bloques de código
+    * si son multilínea o tienen atributos de lenguaje, envolviéndolas en `<pre><code>`.
+    * @param {HTMLElement} container El elemento contenedor donde se realizará la búsqueda.
+    * @returns {void}
+    */
+    function promoteCodeTagsToBlocks(container){
+      if (!container) return;
+      const nodes = container.querySelectorAll('code');
+      dbg(`[promote] candidatos: ${nodes.length}`);
+      nodes.forEach((code, idx) => {
+        if (code.closest('pre')) return; // ya es bloque
+
+        const text = code.textContent || '';
+        const langAttr = (code.getAttribute('lang') || code.dataset.lang || '').toLowerCase().trim();
+        const classLang = [...(code.classList||[])].find(c=>/^language-/.test(c));
+        const langFromClass = classLang ? classLang.replace(/^language-/, '') : '';
+        const lang = langAttr || langFromClass;
+        const isBlock = code.hasAttribute('block') || !!lang || text.includes('\n');
+
+        dbg(`  [${idx}] inline?=${!isBlock} lang="${lang}" len=${text.length} hasNL=${text.includes('\n')}`);
+
+        if (!isBlock) return;
+
+        const pre = document.createElement('pre');
+        const newCode = document.createElement('code');
+        newCode.textContent = text.replace(/\r\n?/g, '\n'); // por si acaso
+        if (lang) newCode.classList.add(`language-${lang}`);
+
+        pre.appendChild(newCode);
+        code.replaceWith(pre);
+      });
+    }
+
+
+    // Base del web app (sin hash)
+    const WEBAPP_BASE = location.href.split('#')[0];
+
+    // Reescritura de imágenes para marked
+    if (window.marked) {
+      marked.use({
+        renderer: {
+          image(href, title, text) {
+            var src = (href || '').trim();
+            var sz  = parseThumbSize(title || '');
+            src = rewriteDriveImageSrc(src, { sz: sz });
+            if (!isSafeUrl(src)) return escapeHtml(text || '');
+            var t = title ? ' title="' + escapeHtml(title) + '"' : '';
+            var alt = escapeHtml(text || '');
+            return '<img src="' + escapeHtml(src) + '" alt="' + alt + '" loading="lazy" decoding="async"' + t + '>';
+          }
+        }
+      });
+    }
+
+
+    function addLineNumbers(container){
+      if (!container) return;
+      const blocks = container.querySelectorAll('pre code');
+      dbg(`[ln] bloques a numerar: ${blocks.length}`);
+
+      blocks.forEach(code => {
+        if (code.dataset.lnDone === '1') return;
+
+        // Lenguaje (si viene de class="language-xxx")
+        const lang = ([...code.classList].find(c => c.startsWith('language-')) || '')
+                      .replace(/^language-/, '') || null;
+
+        // Texto “real” del código (no el HTML de hljs)
+        let text = (code.textContent || '')
+          .replace(/\r\n?/g, '\n')   // CRLF -> LF
+          .replace(/^\n+|\n+$/g, ''); // recorta líneas vacías al inicio/fin
+
+        if (!text) return;
+
+        const lines = text.split('\n');
+        const frag = document.createDocumentFragment();
+        const start = parseInt(code.getAttribute('data-start') || '1', 10);
+
+        lines.forEach((raw, i) => {
+          const line = document.createElement('span');
+          line.className = 'hljs-ln-line';
+          line.dataset.ln = String(start + i);
+
+          // Resaltado por línea (opcional pero recomendado)
+          if (window.hljs) {
+            try {
+              const highlighted = lang
+                ? hljs.highlight(raw, { language: lang, ignoreIllegals: true }).value
+                : hljs.highlightAuto(raw).value;
+              line.innerHTML = highlighted || '&nbsp;';
+            } catch {
+              line.textContent = raw || ' ';
+            }
+          } else {
+            line.textContent = raw || ' ';
+          }
+
+          frag.appendChild(line);
+        });
+
+        // Reemplaza el contenido del <code> por las líneas numeradas
+        code.innerHTML = '';
+        code.appendChild(frag);
+        code.classList.add('hljs', 'hljs-ln-code'); // aplica tema de hljs
+        code.dataset.lnDone = '1';
+        code.style.counterReset = `ln ${start - 1}`;
+      });
+    }
+
+    // —— DEBUG word-cloud helpers ——
+    function normalizeWordsPayload(raw) {
+      // Acepta formatos: {words:[{word,count}]}, {items:[...]}, array “pelado”, {words:[{text,value}]}
+      let shape = 'unknown';
+      let words = [];
+
+      if (Array.isArray(raw)) { shape = 'array'; words = raw; }
+      else if (raw && Array.isArray(raw.words)) { shape = 'words'; words = raw.words; }
+      else if (raw && Array.isArray(raw.items)) { shape = 'items'; words = raw.items; }
+      else { shape = typeof raw; words = []; }
+
+      // Mapea {text,value} -> {word,count}
+      if (words.length && words[0] && ('text' in words[0] || 'value' in words[0])) {
+        words = words.map(x => ({ word: x.word ?? x.text ?? '', count: Number(x.count ?? x.value ?? 0) }));
+      }
+
+      // Filtro mínimo de sanidad
+      words = words
+        .filter(x => x && typeof x.word === 'string' && x.word.trim())
+        .map(x => ({ word: String(x.word).trim(), count: Number(x.count || 0) }))
+        .filter(x => x.count > 0);
+
+      return { words, _shape: shape };
+    }
+
+    function handleWordCloudResponse(raw, meta = {}) {
+      console.log('[CLOUD] raw payload:', raw, meta);
+      const { words, _shape } = normalizeWordsPayload(raw);
+
+      // métricas útiles
+      const top5 = words.slice().sort((a,b)=>b.count-a.count).slice(0,5);
+      const totalCount = words.reduce((s,w)=>s+w.count,0);
+      const maxCount = words.length ? Math.max(...words.map(w=>w.count)) : 0;
+
+      console.log('[CLOUD] normalized:',
+        { shape:_shape, wordsLen: words.length, totalCount, maxCount, sampleTop5: top5 });
+
+      drawCloud({ words }); // llama a tu renderer
+    }
+
+    function showLoading(el, msg = 'Cargando…') {
+      if (!el) return;
+      el.innerHTML = `
+        <div class="loading" role="status" aria-live="polite">
+          <div class="ring"></div>
+          <div class="loading-msg">${escapeHtml(msg)}</div>
+        </div>`;
+    }
+
+  </script>
+</body>
+
+</html>
